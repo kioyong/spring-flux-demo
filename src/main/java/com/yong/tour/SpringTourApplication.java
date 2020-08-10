@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -119,9 +121,10 @@ class Initializer {
 }
 
 interface ReservationRepository extends ReactiveCrudRepository<Reservation, String> {
-}
 
-@Data
+    @Aggregation
+    List<String>  getAllIdList();
+}@Data
 @NoArgsConstructor
 @AllArgsConstructor
 class Reservation {
